@@ -24,10 +24,10 @@ public class TextTable<T> {
     public void print(final Collection<T> data, final Consumer<String> logger) {
         final String formatStr = cols.stream().map(col -> getColFormat(data, col)).collect(joining(" | "));
 
-        // header:
+        // outputting header
         output(logger, formatStr, Col<T>::getHeader);
 
-        // data:
+        // outputting data
         data.forEach(r -> {
             output(logger, formatStr, c -> c.getToStringFct().apply(r));
         });
@@ -41,7 +41,8 @@ public class TextTable<T> {
      * @param formatStr
      *            the format string
      * @param dataExtractor
-     *            data extractor function
+     *            data extractor function (used in order to use the output function for header and data without code
+     *            duplication)
      */
     private void output(final Consumer<String> logger, final String formatStr,
             Function<? super Col<T>, ? extends String> dataExtractor) {
@@ -65,19 +66,38 @@ public class TextTable<T> {
     }
 
     /**
-     * column definition.
+     * This class represents a column definition.
      *
      * @param <T>
      *            record type
      */
     public static class Col<T> {
 
+        /**
+         * Enum representing column orientiation.
+         */
         public static enum Orientation {
-            LEFT, RIGHT
+
+            /** left alignment */
+            LEFT,
+
+            /** right alignment */
+            RIGHT
         }
 
+        /**
+         * The header.
+         */
         private final String header;
+
+        /**
+         * Function that extracts the attribute for this column and converts it to a String.
+         */
         private final Function<T, String> toStringFct;
+
+        /**
+         * The orientation of the column.
+         */
         private final Orientation orientation;
 
         public Col(final String header, final Function<T, String> toStringFct, final Orientation orientation) {
