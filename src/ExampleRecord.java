@@ -1,9 +1,7 @@
 import java.math.BigDecimal;
 
-public class SumSheetEntry {
+public class ExampleRecord {
 
-    
-    
     private String description;
 
     public String getDescription() {
@@ -14,15 +12,14 @@ public class SumSheetEntry {
         this.description = description;
     }
 
-    public SumSheetEntry(String description, String materialNo, BigDecimal totalQuantity, String unit,
-            BigDecimal unitPrice, BigDecimal totalPrice) {
+    public ExampleRecord(String description, String materialNo, BigDecimal totalQuantity, String unit,
+            BigDecimal unitPrice) {
         super();
         this.description = description;
         this.materialNo = materialNo;
         this.totalQuantity = totalQuantity;
         this.unit = unit;
         this.unitPrice = unitPrice;
-        this.totalPrice = totalPrice;
     }
 
     private String materialNo;
@@ -65,14 +62,5 @@ public class SumSheetEntry {
         this.unitPrice = unitPrice;
     }
     
-    private BigDecimal totalPrice;
-    
-    public BigDecimal getTotalPrice() {
-        return totalPrice;
-    }
-    
-    public void setTotalPrice(BigDecimal totalPrice) {
-        this.totalPrice = totalPrice;
-    }
 
 }

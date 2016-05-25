@@ -3,16 +3,20 @@
 The class TextTable in this repository is a simple generic solution for outputting tabluar data as ASCII using Java 8.
 Example: Required output:
 
-    Description       | Material No | Spare Code | Total Quantity | Unit | Unit Price | Total Price
-    Foo Bar           |    20204065 |          V |           2,00 |   ST |       3,00 |        6,00
-    Bar Foo           |    20270808 |          E |           1,00 |   ST |       1,00 |        1,00
-    Foo               |    20204066 |          E |           8,20 |    M |       4,00 |       32,80
-    Bar               |    20204069 |          V |          12,00 |   ST |       2,00 |       24,00
+    Description | Material No | Total Quantity | Unit | Unit Price
+    foo 1       |           1 |           1,00 |   kg |       1,23
+    foo 2       |           2 |          10,00 |   kg |       2,23
+    foo 3       |           3 |          20,00 |   kg |       3,23
 
-This can be achieved by using TextTable as follows:
 
-    // collection of simple java classes (in this case a collection of SumSheetEntry classes)
-    final Collection<SumSheetEntry> data = ... // add some data here
+This can be achieved by using TextTable as follows (see class Main for a runnable example):
+
+    // collection of simple java classes (in this case a collection of ExampleRecord classes)
+    final Collection<ExampleRecord> data = new ArrayList<>();
+    // adding some sample data
+    data.add(new ExampleRecord("foo 1", "1", new BigDecimal("1"), "kg", new BigDecimal("1.23")));
+    data.add(new ExampleRecord("foo 2", "2", new BigDecimal("10"), "kg", new BigDecimal("2.23")));
+    data.add(new ExampleRecord("foo 3", "3", new BigDecimal("20"), "kg", new BigDecimal("3.23")));
      
     final ArrayList<Col<SumSheetEntry>> cols = new ArrayList<>();
 
@@ -26,7 +30,6 @@ This can be achieved by using TextTable as follows:
     cols.add(new Col<>("Total Quantity",  r -> String.format("%.2f", r.getTotalQuantity().doubleValue()),     Col.Orientation.RIGHT));
     cols.add(new Col<>("Unit",            SumSheetEntry::getUnit,                                             Col.Orientation.RIGHT));
     cols.add(new Col<>("Unit Price",      r -> String.format("%.2f", r.getUnitPrice().doubleValue()),         Col.Orientation.RIGHT));
-    cols.add(new Col<>("Total Price",     r -> String.format("%.2f", r.getTotalPrice().doubleValue()),        Col.Orientation.RIGHT));
 
     // -------------------------------------------------------------------------------------------------------------------------------
     // output
